@@ -17,38 +17,30 @@ S++这个概念是在2015年提出的，2016年正式在InfoQ发表。S++重新�
 ## 对SOA中服务的重新定义
 
 基于上述概念，S++重新定义了服务：**服务是一组业务活动的总和**。下面这个模型就是对服务的抽象定义：
-$$
-S=\sum_{i=0}^n B_i =\sum_{i=0}^n p_i*b_i
-$$
+
+<img src="http://latex.codecogs.com/gif.latex?S=\sum_{i=0}^n B_i =\sum_{i=0}^n p_i*b_i" align=center />
+
 其中大写的***B***代表**业务活动**，具有明确的业务目的和内在的业务逻辑，并最终会产生一定的业务结果。业务活动是参与者与行为的乘积，物理含义就是具有参与者参与的行为，其结果就是具有业务目标的业务结果，用如下模型表示：
-$$
-B=p*b
-$$
+
+<img src="http://latex.codecogs.com/gif.latex?B=p*b" align=center />
+
 式 中B代表业务活动的目标和结果，p代表业务参与者（participant）,b代表行为（behavior）。业务行为B是由业务实体p参与行为b而实现的业务目标，由于p和b都不能独立的完成业务目标，所以用乘积的形式来表明缺一不可（当p和b任意一项为零，即没有行为或没有实体时，作为乘积的业务结果B为零）。
 
 - **分配律**
 
-$$
-B=p*(b_1+b_2)=p*b_1+p*b_2=B_1+B_2
-$$
+<img src="http://latex.codecogs.com/gif.latex?B=p*(b_1+b_2)=p*b_1+p*b_2=B_1+B_2" align=center />
 
-$$
-B=(p_1+p_2)*b=p_1*b+p_2*b=B_1+B_2
-$$
+<img src="http://latex.codecogs.com/gif.latex?B=(p_1+p_2)*b=p_1*b+p_2*b=B_1+B_2" align=center />
 
 - **交换律**
-  $$
-  B=B_1+B_2=B_2+B_1
-  $$
+  <img src="http://latex.codecogs.com/gif.latex?B=B_1+B_2=B_2+B_1" align=center />
 
 分配律和交换律都是对现实世界观察和不完全归纳所得出来的结论，其中分配律很容易理解因为它符合分而治之的基本方法；但是交换律告诉我们业务活动可以没有先后次序，这就明显违背了直觉。与直觉不相符的原因是，我们通常都是以面向对象的方式来观察业务活动的。下面用S++的方法来分析解除饥饿（吃饭）这个业务活动，就可以通过行为的独立性来说明交换律。
 
 **行为具有独立性**
 
 对于解除饥饿这个业务活动*B*，有两个参与者人（*p1*）和食物（*p2*），以及进食这个行为*b*，基于前面的定义我们可以得出：
-$$
-B=(p_1+p_2)*b=p_1*b+p_2*b=B_1+B_2
-$$
+<img src="http://latex.codecogs.com/gif.latex?B=(p_1+p_2)*b=p_1*b+p_2*b=B_1+B_2" align=center />
 这个公式的字面意思就是，解除饥饿=人进食+食物进食，如果按照面向对象的方法来分析这无疑是荒谬的，食物如何进食？其实这个公式的实际物理含义是：解除饥饿=人的血糖上升+食物的消耗。S++可以直指业务活动的物理本质，一旦把业务活动分解到这种颗粒度，我们就会发现：
 
 - 人的血糖上升其实和食物的消耗并没有必然的因果关系，这两者完全可以独立的发生。
@@ -89,17 +81,11 @@ $$
 当服务中融合了技术行为和参与者后，服务的数学模型可以表达为：
 
 
-$$
-S=B+T=\sum_{i=0}^n B_i+\sum_{i=0}^nT_i
-$$
+<img src="http://latex.codecogs.com/gif.latex?S=B+T=\sum_{i=0}^n B_i+\sum_{i=0}^nT_i" align=center />
 
-$$
-S=\sum_{i=0}^n p_i*b_i+(\sum_{i=0}^n t_i* B_i + \sum_{i=0}^n p_i*t_i+\sum_{i=0}^n t_i*t_i)
-$$
+<img src="http://latex.codecogs.com/gif.latex?S=\sum_{i=0}^n p_i*b_i+(\sum_{i=0}^n t_i* B_i + \sum_{i=0}^n p_i*t_i+\sum_{i=0}^n t_i*t_i)" align=center />
 
-$$
-S=\sum_{i=0}^n p_i*b_i +0
-$$
+<img src="http://latex.codecogs.com/gif.latex?S=\sum_{i=0}^n p_i*b_i +0" align=center />
 
 其中Ti代表了乘积中有技术（行为或参与者）的项，由于这些项对业务的最终结果没有影响，所以这些项的值为零。技术和业务分离说明，在一个业务系统中，技术部分可以完全独立出来进行开发和维护，不需要和业务代码相混杂。不过技术活动无法遵从交换律（因为通常要对技术活动的结果进行观察），比如对报文的加解密，必须在业务执行之前或之后执行，权限的判别必须在业务执行之前运行等等。技术和业务分离给业务系统的开发和运维提供了很大的益处：
 
@@ -113,21 +99,15 @@ $$
 
 - 对于传统的高内聚松耦合的SOA服务而言，业务活动所需的步骤一般都在一个数据库事务中完成，所以其调用所消耗的时间表达如下：
 
-$$
-T_s=T_c+T_d+\sum_{i=0}^nT_i
-$$
+<img src="http://latex.codecogs.com/gif.latex?T_s=T_c+T_d+\sum_{i=0}^nT_i" align=center />
 
 - 对于微服务而言，由于服务颗粒度比SOA小很多，假设极端情况下是把SOA中的所有步骤都拆分出来分别的调用，那么：
 
-$$
-T_s=\sum_{i=0}^n(T_c+T_d+T_i)
-$$
+<img src="http://latex.codecogs.com/gif.latex?T_s=\sum_{i=0}^n(T_c+T_d+T_i)" align=center />
 
 - 对于S++而言，并行运算带来的好处就是：
 
-$$
-T_s=T_c+T_d+Max(T_i|_{i=0}^n)
-$$
+<img src="http://latex.codecogs.com/gif.latex?T_s=T_c+T_d+Max(T_i|_{i=0}^n)" align=center />
 
 通过上面三个数学模型可以看出，如果以SOA服务为基准，微服务的性能随着颗粒度的降低要多消耗n-1个通讯和数据库事务的时间，而S++随着颗粒度的降低运行速度反而会有所提升。
 
@@ -147,9 +127,7 @@ $$
 ## 量子服务之间零耦合
 
 假如一个量子服务A，需要调用另外一个服务B，那么根据定义：
-$$
-A=p_0*b_0 + B= p_0*b_0 + \sum_{i=1}^nB_i=\sum_{i=0}^nB_i
-$$
+<img src="http://latex.codecogs.com/gif.latex?A=p_0*b_0 + B= p_0*b_0 + \sum_{i=1}^nB_i=\sum_{i=0}^nB_i" align=center />
 可见A并不是一个量子服务，所以量子服务之间是没有调用关系的，也就是没有任何耦合。量子服务的零耦合说明：
 
 - 业务活动必然由量子服务的组合来实现
