@@ -18,7 +18,7 @@ S++这个概念是在2015年提出的，2016年正式在InfoQ发表。S++重新�
 
 基于上述概念，S++重新定义了服务：**服务是一组业务活动的总和**。下面这个模型就是对服务的抽象定义：
 
-<img src="http://latex.codecogs.com/gif.latex?S=\sum_{i=0}^n B_i =\sum_{i=0}^n p_i*b_i" align=center />
+<img src="http://latex.codecogs.com/gif.latex?S= \sum_{i=0}^n B_i = \sum_{i=0}^n p_i*b_i" align=center />
 
 其中大写的***B***代表**业务活动**，具有明确的业务目的和内在的业务逻辑，并最终会产生一定的业务结果。业务活动是参与者与行为的乘积，物理含义就是具有参与者参与的行为，其结果就是具有业务目标的业务结果，用如下模型表示：
 
