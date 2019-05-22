@@ -40,9 +40,7 @@ The law of distribution and the law of exchange are the conclusions of real worl
 
 For the business activity of releasing hunger *B*, there are two participants (*p1*) and food (*p2*), and eating this behavior *b*, based on the previous definition we can conclude:
 
-<img src="http://latex.codecogs.com/gif.latex?
-B=(p_1+p_2)*b=p_1*b+p_2*b=B_1+B_2
-" align=center />
+<img src="http://latex.codecogs.com/gif.latex?B=(p_1+p_2)*b=p_1*b+p_2*b=B_1+B_2" align=center />
 
 The literal meaning of this formula is to relieve hunger = people eat + food eat, if it is ridiculous to analyze according to the object-oriented method, how food eats? In fact, the actual physical meaning of this formula is: relieve hunger = people's blood sugar rise + food consumption. S++ can directly refer to the physical nature of business activities. Once the business activities are broken down into such granularity, we will find:
 
@@ -83,21 +81,16 @@ Give an example to illustrate how to eliminate observations in software, the bus
 
   When the service incorporates technical behavior and participants, the mathematical model of the service can be expressed as:
   
-  <img src="http://latex.codecogs.com/gif.latex?
-  S=B+T=\sum_{i=0}^n B_i+\sum_{i=0}^nT_i
-  " align=center />
-  
-  <img src="http://latex.codecogs.com/gif.latex?
-S=\sum_{i=0}^n p_i*b_i+(\sum_{i=0}^n t_i* B_i + \sum_{i=0}^n p_i*t_i+\sum_{i=0}^n t_i*t_i)
-  " align=center />
+  <img src="http://latex.codecogs.com/gif.latex?S=B+T=\sum_{i=0}^n B_i+\sum_{i=0}^nT_i
+  " align=center /><img src="http://latex.codecogs.com/gif.latex?S=\sum_{i=0}^n p_i*b_i+(\sum_{i=0}^n t_i* B_i + \sum_{i=0}^n p_i*t_i+\sum_{i=0}^n t_i*t_i)" align=center />
   
   <img src="http://latex.codecogs.com/gif.latex?S= \sum_{i=0}^n p_i*b_i +0" align=center />
-
-  Where Ti represents the item of technology (behavior or participant) in the product, and since these items have no effect on the final result of the business, the value of these items is zero. The separation of technology and business shows that in a business system, the technical part can be completely independent of development and maintenance, and does not need to be mixed with business code. However, technical activities cannot comply with the exchange law (because the results of technical activities are usually observed), such as the encryption and decryption of messages, must be performed before or after the execution of the business, the determination of permissions must be run before the business is executed, and so on. The separation of technology and business provides great benefits for the development and operation of business systems:
-
+  
+Where Ti represents the item of technology (behavior or participant) in the product, and since these items have no effect on the final result of the business, the value of these items is zero. The separation of technology and business shows that in a business system, the technical part can be completely independent of development and maintenance, and does not need to be mixed with business code. However, technical activities cannot comply with the exchange law (because the results of technical activities are usually observed), such as the encryption and decryption of messages, must be performed before or after the execution of the business, the determination of permissions must be run before the business is executed, and so on. The separation of technology and business provides great benefits for the development and operation of business systems:
+  
   - **What you Built (module) What you Get **: The modeling and implementation of business activities can completely get rid of the technical constraints. The traditional system development model, Requirements->Analysis->Design->Encoding->Test->Deploy, has become two independent and independent processes: the process of modeling the business experts and the process of the technicians meeting the technical requirements.
   - **Zero Coding(Business Modeling)**: For services that conform to automated processes, the process of modeling no longer focuses on any technical implementation, nor does it need to focus on any branching logic, just define participants and behaviors, and make a simple list. Therefore, the need for coding does not exist.
-  - **Consistency of service connotation and diversity of service extensions**: The business part ***B*** of the service reflects the connotation of the business, and the technical part ***T*** reflects the extension of the service. The diversity of business is showed in the rich changes in ***T***, such as the dazzling diversity of payment services. As long as the technology changes a little bit, it may lead to earth-shaking changes in the entire service, but no matter how the service changes in form, its business connotation is stable, which brings huge benefits to the business system based on S++ development.  In the business modeling process of the service, if you only need to pay attention to the connotation of the service, it is a lot simpler for the modeler. Similarly, for the technical staff, there is no need to understand the business rules, only need to focus on the promotion the technical capabilities of the system.
+- **Consistency of service connotation and diversity of service extensions**: The business part ***B*** of the service reflects the connotation of the business, and the technical part ***T*** reflects the extension of the service. The diversity of business is showed in the rich changes in ***T***, such as the dazzling diversity of payment services. As long as the technology changes a little bit, it may lead to earth-shaking changes in the entire service, but no matter how the service changes in form, its business connotation is stable, which brings huge benefits to the business system based on S++ development.  In the business modeling process of the service, if you only need to pay attention to the connotation of the service, it is a lot simpler for the modeler. Similarly, for the technical staff, there is no need to understand the business rules, only need to focus on the promotion the technical capabilities of the system.
 
 ## Out of order execution / parallel computing
 
@@ -105,21 +98,15 @@ The biggest benefit based on the commutative law is parallel computing. Automate
 
 - For traditional high-gather/low-coupled SOA services, the steps required for business activities are generally done in one database transaction, so the time consumed by the call is expressed as follows:
 
-  <img src="http://latex.codecogs.com/gif.latex?
-  T_s=T_c+T_d+\sum_{i=0}^nT_i
-  " align=center />
+  <img src="http://latex.codecogs.com/gif.latex?T_s=T_c+T_d+\sum_{i=0}^nT_i" align=center />
 
 - For micro-services, since the service granularity is much smaller than SOA, assuming that in extreme cases all the steps ***Ti*** in the SOA are split into separate calls, then:
 
-  <img src="http://latex.codecogs.com/gif.latex?
-  T_s=\sum_{i=0}^n(T_c+T_d+T_i)
-  " align=center />
+  <img src="http://latex.codecogs.com/gif.latex?T_s=\sum_{i=0}^n(T_c+T_d+T_i)" align=center />
 
 - For S++, the benefits of parallel computing are:
 
-  <img src="http://latex.codecogs.com/gif.latex?
-  T_s=T_c+T_d+Max(T_i|_{i=0}^n)
-  " align=center />
+  <img src="http://latex.codecogs.com/gif.latex?T_s=T_c+T_d+Max(T_i|_{i=0}^n)" align=center />
 
 It can be seen from the above three mathematical models that if the SOA service is used as the benchmark, the performance of the micro-service will consume ***n-1*** communication and database transactions with the decrease of the granularity. And S++ will run with the decrease of the granularity, the speed will increase.
 
@@ -140,22 +127,21 @@ For micro-services, due to the reduction of service granularity, any micro-servi
 
   If a quantum ***service A*** needs to call another ***service B***, then by definition:
   
-  <img src="http://latex.codecogs.com/gif.latex?A=p_0*b_0 + B= p_0*b_0 + \sum_{i=1}^nB_i=\sum_{i=0}^nB_i
-  " align=center />
+  <img src="http://latex.codecogs.com/gif.latex?A=p_0*b_0 + B= p_0*b_0 + \sum_{i=1}^nB_i=\sum_{i=0}^nB_i" align=center />
   
-It can be seen that A is not a quantum service, so there is no calling relationship between quantum services, that is, there is no coupling. Zero coupling description of quantum services:
-  
+  It can be seen that A is not a quantum service, so there is no calling relationship between quantum services, that is, there is no coupling. Zero coupling description of quantum services:
+
   - Business activities must be realized by a composite of quantum services
-- Any mutually coupled business system can be further split into two parts: quantum service and business composite
-  
-A serious problem with the traditional micro-service architecture is that as the service granularity is refined, the complexity of the service system increases exponentially. The mutual invocation of services leads to a sharp increase in the number of transactions as the number of services increases, which brings a lot of problems:
-  
+  - Any mutually coupled business system can be further split into two parts: quantum service and business composite
+
+  A serious problem with the traditional micro-service architecture is that as the service granularity is refined, the complexity of the service system increases exponentially. The mutual invocation of services leads to a sharp increase in the number of transactions as the number of services increases, which brings a lot of problems:
+
   - The maintainability of the system is greatly reduced: any service modification will inevitably lead to associated changes, and the number of services is so large.
   - The complexity of the transaction link is uncontrollable, resulting in a serious reliance on the monitoring system.
-- The complexity of the monitoring system has risen sharply, and the demand for resources has even surpassed that of the business system itself. It's like one person working and a group of people watching and supervising.
-  
-In this case, in order to simplify the transaction link and system complexity, S++ states:
-  
+  - The complexity of the monitoring system has risen sharply, and the demand for resources has even surpassed that of the business system itself. It's like one person working and a group of people watching and supervising.
+
+  In this case, in order to simplify the transaction link and system complexity, S++ states:
+
   - Any service cannot contain both the specific business itself and calls to other services.
   - Quantum services can only be called by pure composite services
   - Composite services cannot be called from each other, and composite services can only be modeled by listing participants and behaviors.
