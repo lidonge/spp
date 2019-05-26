@@ -79,20 +79,8 @@ Give an example to illustrate how to eliminate observations in software, the bus
   - Technology participants and behavior also do not change the outcome of business activities. Any business goal that can be achieved must have one or more optional tools to help people achieve the same business results, and more and more tools can be selected as technology advances. The use of any tableware in the business activities to relieve hunger, the results are the same, and will not eat enough because of the use of chopsticks.
   - Technical activities follow the law of distribution, which means that technical activities can be performed separately and independently.
 
-  When the service incorporates technical behavior and participants, the mathematical model of the service can be expressed as:
+  When the service incorporates technical behavior and participants, the mathematical model of the service can be expressed as:<br/><img src="http://latex.codecogs.com/gif.latex?S=B+T=\sum_{i=0}^n B_i+\sum_{i=0}^nT_i" align=center /><br/><img src="http://latex.codecogs.com/gif.latex?S=\sum_{i=0}^n p_i*b_i+(\sum_{i=0}^n t_i* B_i + \sum_{i=0}^n p_i*t_i+\sum_{i=0}^n t_i*t_i)" align=center /><br/><img src="http://latex.codecogs.com/gif.latex?S= \sum_{i=0}^n p_i*b_i +0" align=center /><br/>
   
-  <img src="http://latex.codecogs.com/gif.latex?S=B+T=\sum_{i=0}^n B_i+\sum_{i=0}^nT_i" align=center />
-  
-  
-  
-  <img src="http://latex.codecogs.com/gif.latex?S=\sum_{i=0}^n p_i*b_i+(\sum_{i=0}^n t_i* B_i + \sum_{i=0}^n p_i*t_i+\sum_{i=0}^n t_i*t_i)" align=center />
-
-  
-  
-  <img src="http://latex.codecogs.com/gif.latex?S= \sum_{i=0}^n p_i*b_i +0" align=center />
-
-  
-
   Where Ti represents the item of technology (behavior or participant) in the product, and since these items have no effect on the final result of the business, the value of these items is zero. The separation of technology and business shows that in a business system, the technical part can be completely independent of development and maintenance, and does not need to be mixed with business code. However, technical activities cannot comply with the exchange law (because the results of technical activities are usually observed), such as the encryption and decryption of messages, must be performed before or after the execution of the business, the determination of permissions must be run before the business is executed, and so on. The separation of technology and business provides great benefits for the development and operation of business systems:
   
   - **What you Built (module) What you Get **: The modeling and implementation of business activities can completely get rid of the technical constraints. The traditional system development model, Requirements->Analysis->Design->Encoding->Test->Deploy, has become two independent and independent processes: the process of modeling the business experts and the process of the technicians meeting the technical requirements.
