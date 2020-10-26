@@ -1,4 +1,4 @@
-package spp.java.core.db.file;
+package spp.java.core.unused;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.concurrent.ExecutorService;
 
 import spp.java.core.IRandomAccessable;
+import spp.java.core.db.file.IIndex;
 
 /**
  * Only single thread.
@@ -29,7 +30,7 @@ public class IndexFileTwoPhaseWriter {
 	    public static int newLength(int oldLength, int minGrowth, int prefGrowth) {
 	        // assert oldLength >= 0
 	        // assert minGrowth > 0
-
+	    	
 	        int newLength = Math.max(minGrowth, prefGrowth) + oldLength;
 	        if (newLength - MAX_ARRAY_LENGTH <= 0) {
 	            return newLength;
@@ -90,7 +91,7 @@ public class IndexFileTwoPhaseWriter {
 			System.arraycopy(prepared, 0, tmp, 0, prepared.length);
 			prepared = tmp;
 		}
-		prepared[size]= index;
+		prepared[size++]= index;
 		minIndexID = minIndexID < index.getIndexID() ? minIndexID : index.getIndexID();
 		return ret;
 	}

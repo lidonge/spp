@@ -8,25 +8,27 @@ import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
 
 public class MetaFileWriter {
-
-	private void writeVarChar(DataOutput out, String s) throws IOException{
-		if(s.length() > 256) {
-			throw new IOException("The name length too large:  "+ s);
-		}
-		out.writeByte(s.length());
-		out.write(s.getBytes());;
+	private IDatabase database;
+	public MetaFileWriter(IDatabase database) {
+		this.database = database;
 	}
-
-	public boolean addNewMetadata(IMetaData meta, String file, short version) throws IOException {
-		boolean ret = false;
-		File f = new File(file);
-		boolean newFile = false;
+	/**
+	 * Add a metadata to the specified metadata file, and return the metadata id;
+	 * @param meta    the given metadata
+	 * @param metaFile	  the specified metadata file
+	 * @param version the metadata file version
+	 * @return -1 if failed, or return the new metadata id
+	 * @throws IOException
+	 */
+	public int addNewMetadata(IMetaData meta) throws IOException {
+		int ret = -1;
+		File f = this.database.getDefaultMetadataFile();
 		if(!f.exists())
-			newFile = f.createNewFile();
+			throw new IOException("Can not find database files :" + f);
 		RandomAccessFile fout = null;
 		FileLock fl = null;  //or fc.lock();
 		try {
-			fout = new RandomAccessFile(file,"rw");
+			fout = new RandomAccessFile(f,"rw");
 			FileChannel fc = fout.getChannel();
 			while((fl = fc.tryLock()) == null) {
 				try {
@@ -37,18 +39,20 @@ public class MetaFileWriter {
 				
 			}
 			if(fl != null) {
-				ret = true;
-				if(newFile) {
-					fout.writeShort(version);
-					fout.writeShort(0);
-				}
-				fout.seek(2);
+				//read the max metadata id and increace it
+				int headerSize = this.database.sizeOfMetaFileHeader(); 
+				fout.seek(headerSize);
 				int maxMetaID = fout.readUnsignedShort()+1;
-				fout.seek(2);
-				fout.writeShort(maxMetaID);
+				//set the metadata id and write the meta to the end of the file
 				meta.setMetaID(maxMetaID);
 				fout.seek(fout.length());
 				addNewMetadata(fout, meta);
+				
+				//change the max meta id to the new one in the file
+				fout.seek(headerSize);
+				fout.writeShort(maxMetaID);
+
+				ret = maxMetaID;
 			}
 		}finally {
 			if(fl != null)
@@ -58,7 +62,8 @@ public class MetaFileWriter {
 		}
 		return ret;
 	}
-	public void addNewMetadata(DataOutput dout, IMetaData meta) throws IOException {	
+
+	private void addNewMetadata(DataOutput dout, IMetaData meta) throws IOException {	
 		String clsname = meta.getName();
 		int propsCount = meta.size();
 
@@ -73,4 +78,13 @@ public class MetaFileWriter {
 			dout.writeByte(pmeta.getModifiers());
 		}
 	}
+
+	private void writeVarChar(DataOutput out, String s) throws IOException{
+		if(s.length() > 256) {
+			throw new IOException("The name length too large:  "+ s);
+		}
+		out.writeByte(s.length());
+		out.write(s.getBytes());;
+	}
+
 }

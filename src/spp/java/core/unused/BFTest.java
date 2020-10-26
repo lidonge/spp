@@ -1,4 +1,4 @@
-package spp.java.core.db.file.test;
+package spp.java.core.unused;
 
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
@@ -6,11 +6,6 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
-import spp.java.core.db.file.BlockingBuffer;
-import spp.java.core.db.file.FixedSingleThreadBuffer;
-import spp.java.core.unused.IPartBufferFile;
-import spp.java.core.unused.NonblockingFixSizeBuffer;
 
 public class BFTest {
 	private String fileName = "D:\\testbf.txt";
@@ -52,7 +47,7 @@ public class BFTest {
 
 	}
 
-	private void addToBf(FixedSingleThreadBuffer buf, BlockingBuffer bf, int prevStart, int threads, int count) {
+	private void addToBf(FixedSingleThreadBuffer buf, TwoPhaseBlockWritingBuffer bf, int prevStart, int threads, int count) {
 		long pos = bf.addBuffer(buf);
 		int prev = 0;
 		for(int k = prevStart;k<count;k+=threads) {
@@ -60,7 +55,7 @@ public class BFTest {
 			prev = indexs[k].len;
 		}
 	}
-	private void startRecord( BlockingBuffer bf, int j, int threads, int count,
+	private void startRecord( TwoPhaseBlockWritingBuffer bf, int j, int threads, int count,
 			ExecutorService es) {
 		es.submit(new Runnable() {
 //		new Runnable() {
@@ -101,7 +96,7 @@ public class BFTest {
 	void write(int count, int bufSize,int bufCount, int threads) throws IOException {
 		FileOutputStream fout = new FileOutputStream(fileName);
 		ExecutorService es = Executors.newFixedThreadPool(threads + 1);
-		BlockingBuffer bf = new BlockingBuffer( fout, 0, es);
+		TwoPhaseBlockWritingBuffer bf = new TwoPhaseBlockWritingBuffer( fout, 0, es);
 		FixedSingleThreadBuffer.initReusedBuffer(bufSize, bufCount);
 		indexs = new Index[count];
 		for (int j = 0; j < threads; j++) {

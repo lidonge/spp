@@ -1,4 +1,4 @@
-package spp.java.core.db.file;
+package spp.java.core.unused;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -6,14 +6,14 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.ExecutorService;
 
-public class BlockingBuffer implements Runnable{
+public class TwoPhaseBlockWritingBuffer implements Runnable{
 	private Queue<FixedSingleThreadBuffer> queue;
 	private OutputStream target;
 
 	private long targetPos;
 	private int curPos = 0;
 
-	public BlockingBuffer( OutputStream target, long targetPos,
+	public TwoPhaseBlockWritingBuffer( OutputStream target, long targetPos,
 			ExecutorService executorService) {
 		
 		this.target = target;

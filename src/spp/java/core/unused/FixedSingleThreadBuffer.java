@@ -1,4 +1,4 @@
-package spp.java.core.db.file;
+package spp.java.core.unused;
 
 import java.io.OutputStream;
 import java.util.concurrent.ConcurrentLinkedQueue;
